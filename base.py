@@ -14,21 +14,23 @@ class Feature:
         self.name = self.__class__.__name__
         self.train = pd.read_pickle(Config.train_path)
         self.test = pd.read_pickle(Config.test_path)
+        self.feat_train = None
+        self.feat_test = None
 
     def run(self):
         self.create_features()
         prefix = self.prefix + '_' if self.prefix else ''
         suffix = '_' + self.suffix if self.suffix else ''
-        self.train.columns = prefix + self.train.columns + suffix
-        self.test.columns = prefix + self.test.columns + suffix
+        self.feat_train.columns = prefix + self.feat_train.columns + suffix
+        self.feat_test.columns = prefix + self.feat_test.columns + suffix
         return self
 
     def create_features(self):
         raise NotImplementedError
 
     def save(self):
-        self.train.to_pickle(f'./feature/{self.name}_train.pkl')
-        self.test.to_pickle(f'./feature/{self.name}_test.pkl')
+        self.feat_train.to_pickle(f'./feature/{self.name}_train.pkl')
+        self.feat_test.to_pickle(f'./feature/{self.name}_test.pkl')
 
     def create_memo(self):
         file_path = './feature/_feature_memo.csv'

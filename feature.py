@@ -9,5 +9,5 @@ class Example(Feature):
     def create_features(self):
         self.train['feat_new'] = self.train['feat_1'] * self.train['feat_2']
         self.test['feat_new'] = self.test['feat_1'] * self.test['feat_2']
-        self.train = self.train[['feat_new']]
-        self.test = self.test[['feat_new']]
+        self.feat_train = self.train[['feat_new']]
+        self.feat_test = self.test[['feat_new']]
